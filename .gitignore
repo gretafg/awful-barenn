@@ -1,0 +1,8 @@
+build/
+__pycache__/
+*.pyc
+*.nsys-rep
+*.ncu-rep
+*.sqlite
+results/cluster/
+
