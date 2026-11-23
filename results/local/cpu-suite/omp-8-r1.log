@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/mnt/c/Users/greta/OneDrive/Attachments/Documentos/ChatGPT/supercomp/aps2/build/barenn_cpu",
+    "--backend",
+    "omp",
+    "--threads",
+    "8",
+    "--train",
+    "/mnt/c/Users/greta/OneDrive/Attachments/Documentos/ChatGPT/supercomp/aps2/optdigits.tra",
+    "--test",
+    "/mnt/c/Users/greta/OneDrive/Attachments/Documentos/ChatGPT/supercomp/aps2/optdigits.tes",
+    "--epochs",
+    "51",
+    "--infer-repeats",
+    "100",
+    "--output",
+    "/mnt/c/Users/greta/OneDrive/Attachments/Documentos/ChatGPT/supercomp/aps2/results/local/cpu-suite/omp-8-r1.json"
+  ],
+  "returncode": 0,
+  "stdout": "backend=omp train_s=0.232779448 infer_s=0.057579343 correct=1717/1797 test_loss=0.04319660732\n",
+  "stderr": ""
+}

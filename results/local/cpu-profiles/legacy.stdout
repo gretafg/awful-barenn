@@ -1,0 +1,1 @@
+backend=legacy train_s=7.723558772 infer_s=0.276677298 correct=1657/1797 test_loss=0.09231257

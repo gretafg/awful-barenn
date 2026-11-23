@@ -15,3 +15,9 @@ Usar dimensões fixas, pesos contíguos e buffers reutilizados, eliminando apena
 ## Comparação planejada
 
 Legado e CPU otimizada usarão os mesmos dados, épocas, taxa, sementes e flags de ponto flutuante. Serão comparadas todas as perdas por época e todos os escores do teste, além de previsões e tempos. A inferência OpenMP será comparada em lote com 1, 2, 4 e 8 threads. Tempo de treino e inferência serão apresentados separadamente.
+
+## Resultado local
+
+A comparação completa manteve igualdade exata nas 51 perdas por época e nos 17.970 escores. As 30 execuções da coleta passaram na validação. O treino sequencial obteve mediana de 0.220282 s contra 0.456937 s do legado. A inferência com quatro threads obteve mediana de 0.050758 s para cem passagens pelo conjunto de teste.
+
+A análise detalhada e suas limitações estão em [ANALISE_CPU.md](../ANALISE_CPU.md). Os perfis com simulação de cache usam três épocas e ficam em `results/local/cpu-profiles/`; seus totais não se confundem com o perfil inicial de 51 épocas.

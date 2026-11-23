@@ -1,3 +1,19 @@
+# APS 2: CPU otimizada e inferencia OpenMP
+
+Este marco local incorpora pesos contiguos, buffers reutilizados, remocao do gradiente de entrada descartado e inferencia OpenMP. O treino preserva SGD sequencial por amostra. O arquivo original `barenn.cpp` permanece intacto.
+
+```bash
+make cpu test
+./build/barenn_cpu --backend seq --output cpu.json
+./build/barenn_cpu --backend omp --threads 4 --output omp.json
+```
+
+Resultados locais em `results/local/cpu-suite/`: cinco repeticoes por configuracao; treino mediano de 0.220282 s contra 0.456937 s no legado; inferencia OpenMP com quatro threads de 0.050758 s contra 0.126996 s no legado, para cem passagens. Perdas e escores coincidiram exatamente. A analise e os limites estao em [docs/ANALISE_CPU.md](docs/ANALISE_CPU.md).
+
+Este commit organiza o trabalho local ja realizado. Documentos locais nao equivalem a Issues publicadas. Nenhum push foi realizado.
+
+## Enunciado original
+
 # Projeto Barenn: O Legado, a Sobrevivência e o Salto para a GPU
 
 Era uma segunda-feira aparentemente tranquila quando a demanda chegou à sua mesa. A liderança técnica se aproximou com um sorriso contido e soltou aquela frase clássica que faz qualquer engenheiro gelar por dentro:

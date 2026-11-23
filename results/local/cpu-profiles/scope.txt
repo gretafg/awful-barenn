@@ -1,0 +1,1 @@
+Perfis usam 3 epocas para conter o custo de instrumentacao.

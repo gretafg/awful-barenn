@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/mnt/c/Users/greta/OneDrive/Attachments/Documentos/ChatGPT/supercomp/aps2/build/barenn_cpu",
+    "--backend",
+    "legacy",
+    "--train",
+    "/mnt/c/Users/greta/OneDrive/Attachments/Documentos/ChatGPT/supercomp/aps2/optdigits.tra",
+    "--test",
+    "/mnt/c/Users/greta/OneDrive/Attachments/Documentos/ChatGPT/supercomp/aps2/optdigits.tes",
+    "--epochs",
+    "51",
+    "--infer-repeats",
+    "100",
+    "--output",
+    "/mnt/c/Users/greta/OneDrive/Attachments/Documentos/ChatGPT/supercomp/aps2/results/local/cpu-suite/reference.json"
+  ],
+  "returncode": 0,
+  "stdout": "backend=legacy train_s=0.424087151 infer_s=0.127973221 correct=1717/1797 test_loss=0.04319660732\n",
+  "stderr": ""
+}
