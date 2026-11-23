@@ -1,6 +1,6 @@
 # Referência do legado
 
-Registro local iniciado antes das alterações de otimização. A publicação como Issue depende da identificação do fork do aluno. Este arquivo não representa uma Issue já publicada.
+Registro local iniciado antes das alterações de otimização. O fork foi identificado como `gretafg/awful-barenn`; a publicação como Issue continua pendente de revisão e autorização. Este arquivo não representa uma Issue já publicada.
 
 ## Configuração
 

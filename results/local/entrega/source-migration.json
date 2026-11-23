@@ -1,0 +1,27 @@
+{
+  "barenn.cpp": {
+    "source_sha256": "65b2394eda96caf9754e2fe8b65a795ac7bb12d87d07f2b2d263960add456dff",
+    "clone_sha256": "65b2394eda96caf9754e2fe8b65a795ac7bb12d87d07f2b2d263960add456dff",
+    "equal_after_line_ending_normalization": true
+  },
+  "src/core.hpp": {
+    "source_sha256": "7e38079e4bc0f7fc0b690d6dced0153d6da5f5918496283a661dbe0519fe3738",
+    "clone_sha256": "7e38079e4bc0f7fc0b690d6dced0153d6da5f5918496283a661dbe0519fe3738",
+    "equal_after_line_ending_normalization": true
+  },
+  "src/main.cpp": {
+    "source_sha256": "4e8c3f06a0bf58f02d74d9a4b3fd8180a98bf8adb57141d9ac3c6c51dcc9f516",
+    "clone_sha256": "4e8c3f06a0bf58f02d74d9a4b3fd8180a98bf8adb57141d9ac3c6c51dcc9f516",
+    "equal_after_line_ending_normalization": true
+  },
+  "src/cuda_main.cu": {
+    "source_sha256": "46b0d03cb11cfe58cc25d6479968854bd1ad688de499e66cc1a453716b1ebeee",
+    "clone_sha256": "46b0d03cb11cfe58cc25d6479968854bd1ad688de499e66cc1a453716b1ebeee",
+    "equal_after_line_ending_normalization": true
+  },
+  "src/cuda_impl.cuh": {
+    "source_sha256": "17b2d6d330a58adddebace24a777d4c9efe316c801a4dfc661bb7c7142ba66bb",
+    "clone_sha256": "17b2d6d330a58adddebace24a777d4c9efe316c801a4dfc661bb7c7142ba66bb",
+    "equal_after_line_ending_normalization": true
+  }
+}

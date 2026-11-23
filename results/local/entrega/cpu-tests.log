@@ -1,0 +1,10 @@
+g++ -std=c++17 -O3 -g -ffp-contract=off -Wall -Wextra -Wpedantic -fopenmp tests/validate.cpp -o build/validate
+g++ -std=c++17 -O3 -g -ffp-contract=off -Wall -Wextra -Wpedantic -fopenmp src/main.cpp -o build/barenn_cpu
+./build/validate
+PASS: 512 passos SGD, forward, perda, gradiente numerico e inferencia 1/2/4/8 threads
+python3 -m unittest discover -s tests -p 'test_*.py'
+....
+----------------------------------------------------------------------
+Ran 4 tests in 3.392s
+
+OK
