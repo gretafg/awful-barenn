@@ -1,18 +1,83 @@
-# APS 2: CPU otimizada e inferencia OpenMP
+# APS 2 — Otimização CPU e migração para CUDA
 
-Este marco local incorpora pesos contiguos, buffers reutilizados, remocao do gradiente de entrada descartado e inferencia OpenMP. O treino preserva SGD sequencial por amostra. O arquivo original `barenn.cpp` permanece intacto.
+O projeto mantém a rede 64 → 32 → 16 → 10, ReLU nas camadas ocultas, saída linear, SGD por amostra, taxa 0.02, 51 épocas e semente 1337 reiniciada por camada. O código original `barenn.cpp` foi preservado.
+
+**Estado da preparação:** código, evidências e marcos organizados em Git local. Nenhum push, Issue ou PR foi publicado nesta preparação. A execução CUDA completa de uma configuração passou na comparação numérica; as medições comparativas e os perfis de GPU continuam pendentes. A rubrica exige Issues e publicação do repositório, portanto a entrega no GitHub ainda precisa ser concluída após autorização. [Pendências e histórico real](docs/GOVERNANCA.md).
+
+## Resultados disponíveis
+
+| Versão | Ambiente | Execuções | Treino em s | Inferência em s | Passagens de inferência | Validação |
+| --- | --- | ---: | ---: | ---: | ---: | --- |
+| Legado instrumentado | CPU local | 5 | 0.456937 | 0.126996 | 100 | 1717/1797 acertos |
+| CPU sequencial otimizada | CPU local | 5 | 0.220282 | 0.135349 | 100 | Perdas e escores idênticos |
+| CPU + inferência OpenMP, 4 threads | CPU local | 5 | 0.222440 | 0.050758 | 100 | Perdas e escores idênticos |
+| CUDA inicial (`cuda-naive`) | GPU | Não medido | — | — | — | Compilado e lógica verificada em CPU |
+| CUDA global (`cuda-global`) | GPU | Não medido | — | — | — | Compilado e lógica verificada em CPU |
+| CUDA compartilhado (`cuda-shared`), bloco 128 | Franky | 1 | 0.768943 | 0.000064663 | 1 | Perdas, escores e parâmetros idênticos |
+
+CPU local: Intel Core i5-1240P, WSL Ubuntu 22.04, GCC 11, cinco repetições em ordem embaralhada com aquecimento. A tabela informa **medianas** para CPU. Foram validadas 30 execuções: legado, sequencial e OpenMP com 1, 2, 4 e 8 threads.
+
+O treino sequencial teve ganho de **2.07×** frente ao legado. A inferência OpenMP com quatro threads teve ganho de **2.50×** frente ao legado e **2.67×** frente ao sequencial otimizado. O treino do backend OpenMP continua sequencial: a ordem do SGD não foi alterada. A inferência sequencial otimizada não apresentou ganho nessa coleta.
+
+GPU: execução única em 23/11/2026, com RTX A1000 observada na inspeção imediatamente anterior, nvcc 12.8.93 e driver 570.124.06. Foram 3823 amostras de treino e 1797 de teste, com 1717 acertos (95,55%). A preparação levou 1.711881 s, incluindo inicialização, alocações e H2D. O H2D de 2.432448 ms já está nessa preparação. O D2H levou 0.034912 ms.
+
+Os tempos GPU não são medianas e não demonstram speedup frente à CPU da tabela: as máquinas e o número de passagens de inferência diferem. Também não representam o tempo total do processo, que inclui leitura e exportação. O nó exato da execução não foi gravado; a GPU foi identificada numa inspeção da mesma partição imediatamente anterior. [Saída e escopo](results/cluster/minimo/RELATO.md).
+
+![Tempos locais de CPU e dispersão](results/local/report/times.png)
+
+## Código e decisões
+
+- CPU: parâmetros contíguos e espaço de trabalho fixo, evitando cópias e alocações repetidas; remoção do gradiente dos pixels que o legado calculava e descartava.
+- Multicore: inferência OpenMP por imagem, pesos somente para leitura e temporários privados. O treino mantém a sequência original.
+- CUDA inicial: um lançamento cooperativo por amostra; parâmetros globais e inferência com uma thread por imagem.
+- CUDA global: um lançamento por época, preservando a sequência de SGD dentro do bloco.
+- CUDA compartilhado: um lançamento para todo o treino, pesos compartilhados no bloco e inferência cooperativa para grupos de imagens.
+
+O treino CUDA usa um bloco para preservar as dependências do SGD. Isso limita o aproveitamento da GPU; shared e menos lançamentos são hipóteses de melhoria, ainda sem comparação empírica dos três backends em GPU. Não foi adicionada atualização concorrente entre amostras.
+
+## Reproduzir
+
+Em Linux/WSL, na raiz do projeto:
 
 ```bash
 make cpu test
 ./build/barenn_cpu --backend seq --output cpu.json
 ./build/barenn_cpu --backend omp --threads 4 --output omp.json
+python3 scripts/compare.py cpu.json omp.json
 ```
 
-Resultados locais em `results/local/cpu-suite/`: cinco repeticoes por configuracao; treino mediano de 0.220282 s contra 0.456937 s no legado; inferencia OpenMP com quatro threads de 0.050758 s contra 0.126996 s no legado, para cem passagens. Perdas e escores coincidiram exatamente. A analise e os limites estao em [docs/ANALISE_CPU.md](docs/ANALISE_CPU.md).
+No nó de acesso do Franky, para **uma execução do otimizado**:
 
-Este commit organiza o trabalho local ja realizado. Documentos locais nao equivalem a Issues publicadas. Nenhum push foi realizado.
+```bash
+module load cuda/12.8.1
+bash scripts/run_franky_minimo.sh
+```
+
+Esse script compila no nó de acesso e executa pelo SLURM, com bloco 128, 51 épocas e uma passagem de inferência. Os nós observados não tinham todos os headers de desenvolvimento. O script grava uma pasta nova e não sobrescreve a execução já registrada.
+
+Para compilar sem executar GPU: `make cuda`. O padrão é `sm_75` com PTX; a arquitetura pode ser indicada por `CUDA_ARCH`. A lógica dos kernels também pode ser testada em CPU com `make test-kernel-logic`, sem substituir a execução em GPU ou o Compute Sanitizer.
+
+A bateria completa é **opcional e mais demorada**: `bash scripts/submit_franky.sh`. Ela compila no nó de acesso e submete coleta CPU e GPU com cinco repetições, verificadores e profiling. Os ajustes dos lançadores foram conferidos localmente, mas a bateria completa não foi reexecutada no cluster. [Detalhes dos comandos](COMECE_AQUI.md).
+
+## Discussão, evidências e marcos locais
+
+| Bloco | Discussão local / rascunho de Issue | Evidência | Tag local |
+| --- | --- | --- | --- |
+| Baseline | [Referência](docs/experiments/00-baseline.md) | [Log original](results/local/legacy-first.txt) | `v0.1-baseline` |
+| CPU e OpenMP | [Análise](docs/ANALISE_CPU.md), [rascunho](docs/issues/01-cpu.md) | [Manifesto](results/local/cpu-suite/manifest.json), [medições](results/local/cpu-suite/measurements.csv), [perfil](results/local/cpu-profiles/summary-legacy.txt) | `v0.2-cpu` |
+| CUDA funcional | [Experimento](docs/experiments/02-cuda.md), [rascunho](docs/issues/02-cuda.md) | [Saída completa](results/cluster/minimo/cuda-shared.json), [registro](results/cluster/minimo/RELATO.md) | `v0.3-cuda-funcional` |
+
+Os documentos locais e as tags ainda não são Issues ou tags publicadas no GitHub. Não foram criados links de Issues inexistentes. Os dois commits iniciais da preparação foram preservados; a organização posterior em branches e merges ocorreu localmente, na preparação atual, sem retroagir datas. [Histórico e pendências](docs/GOVERNANCA.md), [roteiro de publicação para revisão](docs/PUBLICACAO.md) e [verificações](docs/VALIDACAO.md).
+
+A validação compara as 51 perdas por época, todos os 17970 escores, previsões, matriz de confusão e parâmetros quando disponíveis. A execução CUDA preservada coincidiu exatamente com as referências locais. Ainda faltam Compute Sanitizer real, perfis Nsight e experimentos repetidos comparáveis na GPU.
+
+## Arquivos principais
+
+`src/core.hpp`: CPU, dados e parâmetros. `src/main.cpp`: opções, referência e avaliação. `src/cuda_impl.cuh`: kernels e memória CUDA. `scripts/`: comparação, coleta, profiling e empacotamento. `tests/`: validações de conta, gradiente e entradas inválidas. `results/`: evidências originais, com ambiente e escopo identificados.
 
 ## Enunciado original
+
+O texto abaixo foi mantido para consulta.
 
 # Projeto Barenn: O Legado, a Sobrevivência e o Salto para a GPU
 

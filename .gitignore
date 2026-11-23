@@ -4,5 +4,10 @@ __pycache__/
 *.nsys-rep
 *.ncu-rep
 *.sqlite
-results/cluster/
+results/cluster/*
+!results/cluster/minimo/
+!results/cluster/logs/
+results/verification/
+/logs/
+*.zip
 

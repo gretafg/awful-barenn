@@ -5,8 +5,7 @@ OMPFLAGS ?= -fopenmp
 CUDA_ARCH ?= sm_75
 NVCCFLAGS ?= -std=c++17 -O3 -lineinfo --fmad=false -arch=$(CUDA_ARCH)
 
-
-.PHONY: all cpu test clean
+.PHONY: all cpu cuda test test-kernel-logic clean
 all: cpu
 cpu: build/legacy build/barenn_cpu
 
@@ -26,5 +25,16 @@ test: build/validate build/barenn_cpu
 	./build/validate
 	python3 -m unittest discover -s tests -p 'test_*.py'
 
+cuda: build/barenn_cuda
+
+build/barenn_cuda: src/cuda_main.cu src/main.cpp src/core.hpp src/cuda_impl.cuh barenn.cpp | build
+	$(NVCC) $(NVCCFLAGS) -Xcompiler=-fopenmp -Xcompiler=-ffp-contract=off src/cuda_main.cu -o $@
+
+build/kernel_logic: tests/kernel_logic.cpp src/core.hpp src/cuda_impl.cuh | build
+	$(CXX) -std=c++20 -O2 -g -ffp-contract=off -fopenmp -pthread $< -o $@
+
+test-kernel-logic: build/kernel_logic
+	./build/kernel_logic
+
 clean:
-	rm -f build/legacy build/barenn_cpu build/validate
+	rm -f build/legacy build/barenn_cpu build/barenn_cuda build/validate build/kernel_logic

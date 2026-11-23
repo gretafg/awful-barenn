@@ -9,3 +9,5 @@ Makefile text eol=lf
 *.hpp text eol=lf
 *.md text eol=lf
 *.txt text eol=lf
+# Preserve profiler output and historical diffs, including their whitespace.
+results/** -whitespace

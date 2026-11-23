@@ -1,0 +1,1 @@
+nvcc -std=c++17 -O3 -lineinfo --fmad=false -arch=sm_75 -Xcompiler=-fopenmp -Xcompiler=-ffp-contract=off src/cuda_main.cu -o build/barenn_cuda

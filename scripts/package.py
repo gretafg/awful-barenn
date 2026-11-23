@@ -14,7 +14,11 @@ with ZipFile(target,"w",compression=ZIP_DEFLATED,compresslevel=6) as z:
         rel=f.relative_to(root)
         if (not f.is_file() or f.resolve()==target or
             any(part in (".git","build","__pycache__",".venv") for part in rel.parts) or
-            str(rel).replace("\\","/").startswith("results/cluster/")):
+            str(rel).replace("\\","/").startswith("logs/") or
+            f.name in ("id_rsa","id_ed25519",".env") or f.suffix in (".pem",".key") or
+            str(rel).replace("\\","/").startswith("results/verification/") or
+            (str(rel).replace("\\","/").startswith("results/cluster/") and
+             not str(rel).replace("\\","/").startswith(("results/cluster/minimo/","results/cluster/logs/")))):
             continue
         name = str(rel).replace("\\","/")
         if f.suffix in (".sh", ".slurm"):
