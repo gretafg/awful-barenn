@@ -1,0 +1,7 @@
+/usr/bin/id: cannot find name for user ID 1126
+Lmod has detected the following error: These module(s) or extension(s) exist
+but cannot be loaded as requested: "cuda/12.8.1"
+   Try: "module spider cuda/12.8.1" to see how to load the module(s).
+
+
+

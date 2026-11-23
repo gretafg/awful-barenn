@@ -1,0 +1,1 @@
+backend=cuda-shared train_s=0.768943237 infer_s=6.4663e-05 correct=1717/1797 test_loss=0.04319660732
