@@ -1,6 +1,6 @@
 # Referência do legado
 
-Registro local iniciado antes das alterações de otimização. O fork foi identificado como `gretafg/awful-barenn`; a publicação como Issue continua pendente de revisão e autorização. Este arquivo não representa uma Issue já publicada.
+Registro iniciado localmente e publicado posteriormente na [Issue #1](https://github.com/gretafg/awful-barenn/issues/1), associado à tag `v0.1-baseline`. A Issue é retrospectiva e não comprova abertura anterior às alterações no GitHub.
 
 ## Configuração
 

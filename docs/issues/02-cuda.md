@@ -1,6 +1,9 @@
-# CUDA: preservar SGD com treino cooperativo e dados persistentes
+# CUDA funcional: preservar SGD e validar a execução no Franky
 
-Rascunho local para revisão. Este arquivo não é uma Issue publicada nem afirma medição de ganho ainda não realizada.
+Registro publicado: [Issue #3](https://github.com/gretafg/awful-barenn/issues/3), fechado e associado à [tag `v0.3-cuda-funcional`](https://github.com/gretafg/awful-barenn/tree/v0.3-cuda-funcional).
+
+
+Registro retrospectivo da migração funcional. O código e a execução documentada precedem a abertura desta Issue. O escopo de fechamento é a funcionalidade validada de `cuda-shared`, sem afirmar ganho comparativo ainda não medido.
 
 ## Ponto de partida e hipótese
 
@@ -38,4 +41,14 @@ Faltam repetições, outros backends e tamanhos de bloco, Compute Sanitizer e pe
 
 No nó de acesso: `module load cuda/12.8.1` e `bash scripts/run_franky_minimo.sh` fazem uma nova execução da configuração otimizada. Para a bateria completa opcional, `bash scripts/submit_franky.sh`; ela é mais demorada e não foi iniciada nesta preparação.
 
-Marco local: `v0.3-cuda-funcional`. Antes de publicar, inserir links reais de tag/evidências; manter explícito que a Issue não existia antes da implementação.
+
+## Marco e evidências publicadas
+
+- [Tag anotada v0.3-cuda-funcional](https://github.com/gretafg/awful-barenn/tree/v0.3-cuda-funcional).
+- [JSON completo da execução real do Franky](https://github.com/gretafg/awful-barenn/blob/v0.3-cuda-funcional/results/cluster/minimo/cuda-shared.json).
+- [Escopo, comando e tempos observados](https://github.com/gretafg/awful-barenn/blob/v0.3-cuda-funcional/results/cluster/minimo/RELATO.md).
+- [Comparação numérica preservada](https://github.com/gretafg/awful-barenn/blob/v0.3-cuda-funcional/results/cluster/minimo/validation.json).
+- [Kernels de treino e inferência](https://github.com/gretafg/awful-barenn/blob/v0.3-cuda-funcional/src/cuda_impl.cuh).
+- [Verificações e limitações atuais](https://github.com/gretafg/awful-barenn/blob/main/docs/VALIDACAO.md).
+
+A conclusão deste marco é funcional. As otimizações comparativas, escolha do bloco, Compute Sanitizer e perfis GPU permanecem pendentes e não são apresentadas como concluídas ao fechar este registro.

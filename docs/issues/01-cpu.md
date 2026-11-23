@@ -1,6 +1,9 @@
-# CPU: reduzir temporários e paralelizar inferência preservando SGD
+# CPU/OpenMP: reduzir temporários e validar o ganho na inferência
 
-Rascunho local para revisão. Este arquivo não é uma Issue publicada nem comprova abertura anterior à alteração do código.
+Registro publicado: [Issue #2](https://github.com/gretafg/awful-barenn/issues/2), fechado e associado à [tag `v0.2-cpu`](https://github.com/gretafg/awful-barenn/tree/v0.2-cpu).
+
+
+Registro retrospectivo. A implementação e as medições foram realizadas antes da abertura desta Issue; a cronologia não foi retroagida.
 
 ## Diagnóstico
 
@@ -40,4 +43,15 @@ Quatro threads venceram oito na mediana. Overhead, virtualização e carga do co
 
 Evidências no repositório: `results/local/cpu-suite/manifest.json`, `measurements.csv`, JSONs e validações por execução; `results/local/cpu-profiles/` contém os perfis. A discussão completa está em `docs/ANALISE_CPU.md`. Marco local: `v0.2-cpu`.
 
-Antes de publicar esta discussão, inserir os links reais da tag e das evidências na branch publicada. Não há número de Issue ou PR a referenciar nesta preparação local.
+
+## Marco e evidências publicadas
+
+- [Tag anotada v0.2-cpu](https://github.com/gretafg/awful-barenn/tree/v0.2-cpu).
+- [Análise completa e limites](https://github.com/gretafg/awful-barenn/blob/v0.2-cpu/docs/ANALISE_CPU.md).
+- [Manifesto de ambiente, flags e hashes](https://github.com/gretafg/awful-barenn/blob/v0.2-cpu/results/local/cpu-suite/manifest.json).
+- [30 medições originais](https://github.com/gretafg/awful-barenn/blob/v0.2-cpu/results/local/cpu-suite/measurements.csv).
+- [Resumo Callgrind do legado, três épocas](https://github.com/gretafg/awful-barenn/blob/v0.2-cpu/results/local/cpu-profiles/summary-legacy.txt).
+- [Resumo Callgrind da CPU otimizada, três épocas](https://github.com/gretafg/awful-barenn/blob/v0.2-cpu/results/local/cpu-profiles/summary-seq.txt).
+- [Gráfico com mínimo/máximo](https://github.com/gretafg/awful-barenn/blob/v0.2-cpu/results/local/report/times.png).
+
+Este registro encerra o bloco CPU/OpenMP. Não afirma que o treino foi paralelizado nem que toda etapa sequencial ficou mais rápida.

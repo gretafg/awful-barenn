@@ -25,4 +25,4 @@ A observação comprova funcionamento da configuração executada; não comprova
 
 Ainda faltam Compute Sanitizer real, Nsight Systems/Compute, medições dos outros backends e escolha experimental do bloco. A bateria completa foi preparada, mas não executada após o pedido de coleta mínima. Perfis ou resultados ausentes não foram preenchidos com estimativas.
 
-As tolerâncias do comparador permanecem `atol=1e-6`, `rtol=1e-5`, com previsões e matriz de confusão idênticas. Não foram ampliadas para produzir aprovação. O [rascunho de Issue](../issues/02-cuda.md) está local; não existe Issue publicada deste experimento.
+As tolerâncias do comparador permanecem `atol=1e-6`, `rtol=1e-5`, com previsões e matriz de confusão idênticas. Não foram ampliadas para produzir aprovação. A [Issue #3](https://github.com/gretafg/awful-barenn/issues/3) registra a migração funcional e foi publicada retrospectivamente. Sua [cópia](../issues/02-cuda.md) acompanha este repositório; os experimentos GPU pendentes permanecem identificados.

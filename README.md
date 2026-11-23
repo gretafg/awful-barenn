@@ -2,7 +2,7 @@
 
 O projeto mantém a rede 64 → 32 → 16 → 10, ReLU nas camadas ocultas, saída linear, SGD por amostra, taxa 0.02, 51 épocas e semente 1337 reiniciada por camada. O código original `barenn.cpp` foi preservado.
 
-**Estado da preparação:** código, evidências e marcos organizados em Git local. Nenhum push, Issue ou PR foi publicado nesta preparação. A execução CUDA completa de uma configuração passou na comparação numérica; as medições comparativas e os perfis de GPU continuam pendentes. A rubrica exige Issues e publicação do repositório, portanto a entrega no GitHub ainda precisa ser concluída após autorização. [Pendências e histórico real](docs/GOVERNANCA.md).
+**Estado:** código, evidências, branches e três tags anotadas publicados; `main` é a branch principal. Os registros de baseline, CPU/OpenMP e CUDA funcional estão nas Issues [#1](https://github.com/gretafg/awful-barenn/issues/1), [#2](https://github.com/gretafg/awful-barenn/issues/2) e [#3](https://github.com/gretafg/awful-barenn/issues/3), fechadas e vinculadas aos respectivos marcos. São registros retrospectivos: foram publicados após a implementação, sem retroagir a cronologia. As comparações e os perfis de GPU continuam pendentes. [Histórico e limites](docs/GOVERNANCA.md).
 
 ## Resultados disponíveis
 
@@ -59,15 +59,15 @@ Para compilar sem executar GPU: `make cuda`. O padrão é `sm_75` com PTX; a arq
 
 A bateria completa é **opcional e mais demorada**: `bash scripts/submit_franky.sh`. Ela compila no nó de acesso e submete coleta CPU e GPU com cinco repetições, verificadores e profiling. Os ajustes dos lançadores foram conferidos localmente, mas a bateria completa não foi reexecutada no cluster. [Detalhes dos comandos](COMECE_AQUI.md).
 
-## Discussão, evidências e marcos locais
+## Discussão, evidências e marcos
 
-| Bloco | Discussão local / rascunho de Issue | Evidência | Tag local |
+| Bloco | Discussão publicada | Evidência | Tag anotada |
 | --- | --- | --- | --- |
-| Baseline | [Referência](docs/experiments/00-baseline.md) | [Log original](results/local/legacy-first.txt) | `v0.1-baseline` |
-| CPU e OpenMP | [Análise](docs/ANALISE_CPU.md), [rascunho](docs/issues/01-cpu.md) | [Manifesto](results/local/cpu-suite/manifest.json), [medições](results/local/cpu-suite/measurements.csv), [perfil](results/local/cpu-profiles/summary-legacy.txt) | `v0.2-cpu` |
-| CUDA funcional | [Experimento](docs/experiments/02-cuda.md), [rascunho](docs/issues/02-cuda.md) | [Saída completa](results/cluster/minimo/cuda-shared.json), [registro](results/cluster/minimo/RELATO.md) | `v0.3-cuda-funcional` |
+| Baseline | [Issue #1](https://github.com/gretafg/awful-barenn/issues/1), [cópia](docs/issues/00-baseline.md) | [Log original](results/local/legacy-first.txt) | [v0.1-baseline](https://github.com/gretafg/awful-barenn/tree/v0.1-baseline) |
+| CPU e OpenMP | [Issue #2](https://github.com/gretafg/awful-barenn/issues/2), [análise](docs/ANALISE_CPU.md) | [Manifesto](results/local/cpu-suite/manifest.json), [medições](results/local/cpu-suite/measurements.csv), [perfil](results/local/cpu-profiles/summary-legacy.txt) | [v0.2-cpu](https://github.com/gretafg/awful-barenn/tree/v0.2-cpu) |
+| CUDA funcional | [Issue #3](https://github.com/gretafg/awful-barenn/issues/3), [experimento](docs/experiments/02-cuda.md) | [Saída completa](results/cluster/minimo/cuda-shared.json), [registro](results/cluster/minimo/RELATO.md) | [v0.3-cuda-funcional](https://github.com/gretafg/awful-barenn/tree/v0.3-cuda-funcional) |
 
-Os documentos locais e as tags ainda não são Issues ou tags publicadas no GitHub. Não foram criados links de Issues inexistentes. Os dois commits iniciais da preparação foram preservados; a organização posterior em branches e merges ocorreu localmente, na preparação atual, sem retroagir datas. [Histórico e pendências](docs/GOVERNANCA.md), [roteiro de publicação para revisão](docs/PUBLICACAO.md) e [verificações](docs/VALIDACAO.md).
+As três Issues estão fechadas nos escopos documentados: referência, otimização CPU/OpenMP e migração CUDA funcional. O fechamento da terceira não afirma conclusão de profiling ou de comparações GPU ainda não realizadas. Os registros foram publicados após o trabalho; os merges locais foram preservados sem criar um histórico retroativo de Issues ou PRs. [Histórico](docs/GOVERNANCA.md), [estado da publicação](docs/PUBLICACAO.md) e [verificações](docs/VALIDACAO.md).
 
 A validação compara as 51 perdas por época, todos os 17970 escores, previsões, matriz de confusão e parâmetros quando disponíveis. A execução CUDA preservada coincidiu exatamente com as referências locais. Ainda faltam Compute Sanitizer real, perfis Nsight e experimentos repetidos comparáveis na GPU.
 

@@ -1,6 +1,6 @@
 # Reproduzir a APS 2
 
-Esta cópia reúne código e resultados já obtidos. A implementação foi organizada em commits locais, sem push. A parte de publicação e Issues continua pendente: veja [governança](docs/GOVERNANCA.md).
+O fork reúne código, resultados, tags anotadas e os registros nas Issues #1, #2 e #3. A branch principal é `main`. As limitações das medições permanecem explícitas no [histórico](docs/GOVERNANCA.md).
 
 ## Validar CPU
 
@@ -19,7 +19,7 @@ python3 scripts/compare.py cpu.json omp.json
 
 ## Executar somente o CUDA otimizado no Franky
 
-Transfira a pasta local ou gere um pacote com `python scripts/package.py ../aps2-entrega-local.zip`. Clonar apenas o fork remoto ainda não traz as alterações locais.
+O fork já contém as alterações. Para obter uma cópia, use `git clone https://github.com/gretafg/awful-barenn.git` e entre na pasta `awful-barenn`. Também é possível transferir a pasta ou gerar um pacote com `python scripts/package.py ../aps2-entrega-local.zip`.
 
 No nó de acesso, dentro da pasta transferida:
 

@@ -1,6 +1,6 @@
 # Hipótese de otimização em CPU
 
-Registro local aberto antes da alteração da implementação. O fork foi identificado como `gretafg/awful-barenn`; a publicação como Issue continua pendente de revisão e autorização. Este documento não comprova abertura anterior de uma Issue no GitHub.
+Registro iniciado localmente e publicado posteriormente na [Issue #2](https://github.com/gretafg/awful-barenn/issues/2), associado à tag `v0.2-cpu`. A Issue é retrospectiva e não comprova abertura anterior às alterações no GitHub.
 
 ## Diagnóstico
 

@@ -1,25 +1,21 @@
-# Publicação pendente para revisão
+# Estado da publicação
 
-Esta preparação modificou somente a cópia local. Nenhuma ação abaixo foi executada no GitHub; este documento é um roteiro para a etapa que depende de autorização.
+Repositório: [gretafg/awful-barenn](https://github.com/gretafg/awful-barenn)
 
-## Conferir localmente
+## Publicado
 
-```bash
-git status --short
-git log --graph --oneline --decorate -12
-git tag -n3
-make cpu test
-```
+- Código e evidências integrados à branch principal `main`.
+- Branches de CPU, CUDA e preparação documental preservadas.
+- Tags anotadas [v0.1-baseline](https://github.com/gretafg/awful-barenn/tree/v0.1-baseline), [v0.2-cpu](https://github.com/gretafg/awful-barenn/tree/v0.2-cpu) e [v0.3-cuda-funcional](https://github.com/gretafg/awful-barenn/tree/v0.3-cuda-funcional).
+- Issues [#1](https://github.com/gretafg/awful-barenn/issues/1), [#2](https://github.com/gretafg/awful-barenn/issues/2) e [#3](https://github.com/gretafg/awful-barenn/issues/3), fechadas nos escopos descritos e associadas às tags.
+- README com resultados, comandos, limites e links diretos para os registros.
 
-A branch final é `main`. As branches CPU e CUDA preservam blocos de trabalho e as tags anotadas registram seus estados. O antigo `master` permanece como referência do fork. Os documentos locais de experimentos não substituem Issues publicadas.
+O antigo `master` foi preservado e não houve force push. A cronologia real das medições, commits e registros foi mantida. As Issues foram publicadas após a implementação; não são descritas como hipóteses abertas previamente no GitHub.
 
-## Etapas no GitHub após autorização
+## Pendências técnicas
 
-1. Revisar o histórico e os arquivos incluídos, especialmente resultados, tags e limitações no README.
-2. Publicar commits e tags escolhidos, respeitando a branch remota existente e a organização exigida para `main`. Não usar force push para substituir trabalho remoto sem revisão.
-3. Publicar os registros de experimento como Issues com as evidências reais; usar os rascunhos locais como ponto de partida. Informar a cronologia real, sem apresentá-los como Issues abertas antes da implementação.
-4. Inserir no README os links reais das Issues e tags publicadas. Se houver revisão via PR, registrar o PR real; os merges locais não equivalem a PRs no GitHub.
-5. Executar e anexar os experimentos de GPU que ainda faltam, se possível, antes de afirmar ganho entre backends ou conclusão da otimização avançada.
-6. Conferir a `main` publicada e o link do repositório a ser entregue no Blackboard. Não submeter uma pasta local ou ZIP como se substituíssem o formato de entrega pedido.
+Comparações e profiling de GPU seguem pendentes, conforme a [Issue #3](https://github.com/gretafg/awful-barenn/issues/3) e o [histórico](GOVERNANCA.md). Uma única configuração CUDA executada não comprova ganho entre os backends. As limitações não foram removidas ao publicar o trabalho.
 
-Não foram preparados comandos de push automáticos. As publicações e a submissão final não fazem parte do trabalho local já autorizado.
+## Submissão
+
+O link do repositório é `https://github.com/gretafg/awful-barenn`. Não houve envio de resposta ao Blackboard nesta publicação.

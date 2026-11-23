@@ -1,35 +1,31 @@
-# Histórico local e pendências da entrega
+# Histórico e publicação
 
-O fork remoto continua sem as alterações desta preparação. Foi feito um novo clone em `awful-barenn`, importando a preparação local existente sem alterar a pasta anterior `aps2`. A autorização atual permite commits locais e proíbe push. Não foram abertas ou modificadas Issues e PRs.
+O fork [gretafg/awful-barenn](https://github.com/gretafg/awful-barenn) contém código, evidências e tags anotadas. A branch principal é `main`; o antigo `master` foi preservado. As Issues foram habilitadas e os registros publicados após a implementação, sem retroagir datas.
 
-## Evolução preservada e organização atual
+## Blocos e rastreabilidade
 
-Os commits `7b59ae8` (referência do legado) e `6843878` (hipótese de CPU) já existiam antes da instrução anterior de pedir autorização para commits. A tag anotada `v0.1-baseline` foi preservada. Não houve publicação desses marcos.
+| Bloco | Branch | Tag publicada | Registro |
+| --- | --- | --- | --- |
+| Referência do legado | Histórico inicial preservado | [v0.1-baseline](https://github.com/gretafg/awful-barenn/tree/v0.1-baseline) | [Issue #1](https://github.com/gretafg/awful-barenn/issues/1) |
+| CPU e OpenMP | `perf/cpu-buffers` | [v0.2-cpu](https://github.com/gretafg/awful-barenn/tree/v0.2-cpu) | [Issue #2](https://github.com/gretafg/awful-barenn/issues/2) |
+| Migração CUDA funcional | `feat/cuda-sgd` | [v0.3-cuda-funcional](https://github.com/gretafg/awful-barenn/tree/v0.3-cuda-funcional) | [Issue #3](https://github.com/gretafg/awful-barenn/issues/3) |
 
-Na preparação atual, o trabalho foi organizado em blocos locais:
+Os commits iniciais `7b59ae8` e `6843878` foram preservados. A organização posterior do trabalho ocorreu em branches e merges locais integrados à `main`, que foram publicados como tais. Eles não são apresentados como Pull Requests anteriores. `docs/entrega-local` reúne a verificação da cópia antes da publicação; `docs/publicacao` atualiza o índice com os registros reais.
 
-| Branch | Conteúdo | Marco |
-| --- | --- | --- |
-| `perf/cpu-buffers` | Parâmetros contíguos, buffers fixos, inferência OpenMP e evidências CPU | `v0.2-cpu` |
-| `feat/cuda-sgd` | Treino e inferência CUDA, teste de lógica, execução real preservada e lançadores | `v0.3-cuda-funcional` |
-| `docs/entrega-local` | Consolidação do relatório, rascunhos e verificação da cópia local | Sem tag de desempenho |
+## Escopo dos fechamentos
 
-As branches são integradas à `main` por merges locais. Eles não são Pull Requests publicados. A separação atual organiza o trabalho já realizado; não pretende demonstrar que Issues foram abertas antes de cada alteração nem retroagir os commits à data das medições.
+- Issue #1: referência original executada e dados iniciais de tempo/perfil registrados.
+- Issue #2: otimização CPU e inferência OpenMP, com comparação numérica, 30 medições e perfis Callgrind.
+- Issue #3: migração CUDA funcional, compilação, teste de lógica CPU e uma execução real completa de `cuda-shared` validada contra referências. O fechamento se refere à funcionalidade desse marco.
 
-## Significado das tags
+As três estão fechadas e vinculadas às respectivas tags. Os textos em `docs/issues/` preservam cópias dos registros publicados. Não foram criados perfis, números de experimentos ou resultados que não existiam.
 
-- `v0.1-baseline`: referência original reproduzível com `make cpu` e `./build/legacy`.
-- `v0.2-cpu`: CPU validada, com 30 medições anteriores e Callgrind. Reproduzir com `make cpu test`.
-- `v0.3-cuda-funcional`: CUDA compila e a configuração compartilhada teve execução real completa validada. A tag é funcional; não afirma ganho empírico entre os backends CUDA.
+## Limites para avaliar a entrega
 
-As tags são anotadas e permanecem locais. Os comandos de consulta são `git show v0.2-cpu` e `git show v0.3-cuda-funcional`. Confira cada marco em uma cópia limpa ou preserve seu trabalho antes de trocar de versão.
+1. As Issues são retrospectivas. Sua publicação agora não cumpre literalmente a exigência de abrir uma Issue antes de alterar o código. Essa diferença permanece explícita nos registros.
+2. CPU e CUDA foram integradas inicialmente por merges locais, sem PRs históricos. Não houve reescrita das datas ou das tags para simular outro fluxo.
+3. Ainda faltam execução dos outros backends na GPU, repetições comparáveis, Compute Sanitizer e perfis Nsight. A tag CUDA é funcional; não afirma conclusão de otimização avançada ou ganho entre versões GPU.
+4. Os tempos CPU e GPU usam ambientes e quantidades de inferência diferentes. Não é válido calcular speedup direto entre eles.
+5. O repositório foi publicado, mas não houve envio ao Blackboard. A entrega pedida pelo enunciado é o link do fork.
 
-## O que ainda falta para cumprir a rubrica
-
-1. Revisar e publicar as discussões em Issues, com links reais para os dados e para as tags. Os [rascunhos CPU](issues/01-cpu.md) e [CUDA](issues/02-cuda.md) são arquivos locais, não Issues existentes.
-2. Informar honestamente que os registros locais de hipótese não cumprem literalmente a exigência de abrir Issue antes da implementação. Não inventar cronologia, números de Issues ou discussões anteriores.
-3. Executar os outros backends na GPU, medições repetidas comparáveis, verificadores e perfis Nsight, se houver tempo e autorização para essa coleta. O pedido anterior foi de execução mínima; não foi iniciada uma bateria nova nesta preparação.
-4. Publicar os commits, branches e tags somente após autorização. O repositório usa `master` no remoto e a cópia final está organizada em `main` local; não houve alteração da branch padrão do GitHub.
-5. Substituir as referências locais por links reais de Issues/PRs e conferir a branch de entrega antes da submissão do link no Blackboard.
-
-A rubrica prevê nota zero para ausência de governança ou discussão empírica nas Issues. Código local validado, sozinho, não conclui esses requisitos. Nenhum documento deste clone afirma que a publicação já foi feita.
+Para reproduzir o marco CPU: `make cpu test`. Para uma execução do CUDA otimizado no Franky: `module load cuda/12.8.1` e `bash scripts/run_franky_minimo.sh`. A coleta completa é opcional e mais demorada; não foi iniciada nesta publicação.
