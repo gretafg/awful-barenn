@@ -69,6 +69,8 @@ A bateria completa é **opcional e mais demorada**: `bash scripts/submit_franky.
 
 As três Issues estão fechadas nos escopos documentados: referência, otimização CPU/OpenMP e migração CUDA funcional. O fechamento da terceira não afirma conclusão de profiling ou de comparações GPU ainda não realizadas. Os registros foram publicados após o trabalho; os merges locais foram preservados sem criar um histórico retroativo de Issues ou PRs. [Histórico](docs/GOVERNANCA.md), [estado da publicação](docs/PUBLICACAO.md) e [verificações](docs/VALIDACAO.md).
 
+O índice e os registros de publicação foram atualizados no [PR #4](https://github.com/gretafg/awful-barenn/pull/4).
+
 A validação compara as 51 perdas por época, todos os 17970 escores, previsões, matriz de confusão e parâmetros quando disponíveis. A execução CUDA preservada coincidiu exatamente com as referências locais. Ainda faltam Compute Sanitizer real, perfis Nsight e experimentos repetidos comparáveis na GPU.
 
 Os testes de CPU, compilação CUDA, lógica dos kernels em CPU e comparação do resultado preservado foram conferidos novamente nesta cópia. [Logs e hashes da verificação local](results/local/entrega/manifest.json).

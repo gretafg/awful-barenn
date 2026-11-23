@@ -10,7 +10,9 @@ O fork [gretafg/awful-barenn](https://github.com/gretafg/awful-barenn) contém c
 | CPU e OpenMP | `perf/cpu-buffers` | [v0.2-cpu](https://github.com/gretafg/awful-barenn/tree/v0.2-cpu) | [Issue #2](https://github.com/gretafg/awful-barenn/issues/2) |
 | Migração CUDA funcional | `feat/cuda-sgd` | [v0.3-cuda-funcional](https://github.com/gretafg/awful-barenn/tree/v0.3-cuda-funcional) | [Issue #3](https://github.com/gretafg/awful-barenn/issues/3) |
 
-Os commits iniciais `7b59ae8` e `6843878` foram preservados. A organização posterior do trabalho ocorreu em branches e merges locais integrados à `main`, que foram publicados como tais. Eles não são apresentados como Pull Requests anteriores. `docs/entrega-local` reúne a verificação da cópia antes da publicação; `docs/publicacao` atualiza o índice com os registros reais.
+Os commits iniciais `e8e23c9` e `75024cc` foram preservados. A organização posterior do trabalho ocorreu em branches e merges locais integrados à `main`, que foram publicados como tais. Eles não são apresentados como Pull Requests anteriores. `docs/entrega-local` reúne a verificação da cópia antes da publicação; `docs/publicacao` atualiza o índice com os registros reais.
+
+A atualização do índice de Issues, tags e estado da publicação está no [PR #4](https://github.com/gretafg/awful-barenn/pull/4). Esse PR registra a atualização documental atual e não substitui os merges locais anteriores por PRs históricos.
 
 ## Escopo dos fechamentos
 

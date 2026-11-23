@@ -12,6 +12,8 @@ Repositório: [gretafg/awful-barenn](https://github.com/gretafg/awful-barenn)
 
 O antigo `master` foi preservado e não houve force push. A cronologia real das medições, commits e registros foi mantida. As Issues foram publicadas após a implementação; não são descritas como hipóteses abertas previamente no GitHub.
 
+Atualização dos registros e links: [PR #4](https://github.com/gretafg/awful-barenn/pull/4). As mensagens dos commits da APS foram traduzidas para português, preservando conteúdo e estrutura dos marcos. Os identificadores mudaram; hashes presentes em evidências anteriores continuam sendo os da coleta original.
+
 ## Pendências técnicas
 
 Comparações e profiling de GPU seguem pendentes, conforme a [Issue #3](https://github.com/gretafg/awful-barenn/issues/3) e o [histórico](GOVERNANCA.md). Uma única configuração CUDA executada não comprova ganho entre os backends. As limitações não foram removidas ao publicar o trabalho.
