@@ -71,6 +71,8 @@ Os documentos locais e as tags ainda não são Issues ou tags publicadas no GitH
 
 A validação compara as 51 perdas por época, todos os 17970 escores, previsões, matriz de confusão e parâmetros quando disponíveis. A execução CUDA preservada coincidiu exatamente com as referências locais. Ainda faltam Compute Sanitizer real, perfis Nsight e experimentos repetidos comparáveis na GPU.
 
+Os testes de CPU, compilação CUDA, lógica dos kernels em CPU e comparação do resultado preservado foram conferidos novamente nesta cópia. [Logs e hashes da verificação local](results/local/entrega/manifest.json).
+
 ## Arquivos principais
 
 `src/core.hpp`: CPU, dados e parâmetros. `src/main.cpp`: opções, referência e avaliação. `src/cuda_impl.cuh`: kernels e memória CUDA. `scripts/`: comparação, coleta, profiling e empacotamento. `tests/`: validações de conta, gradiente e entradas inválidas. `results/`: evidências originais, com ambiente e escopo identificados.

@@ -1,6 +1,6 @@
 # Hipótese de otimização em CPU
 
-Registro local aberto antes da alteração da implementação. A publicação como Issue ainda depende do fork.
+Registro local aberto antes da alteração da implementação. O fork foi identificado como `gretafg/awful-barenn`; a publicação como Issue continua pendente de revisão e autorização. Este documento não comprova abertura anterior de uma Issue no GitHub.
 
 ## Diagnóstico
 

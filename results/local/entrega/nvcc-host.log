@@ -1,0 +1,1 @@
+backend=seq train_s=0.528497688 infer_s=0.002916462 correct=1717/1797 test_loss=0.04319660732
