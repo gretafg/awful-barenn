@@ -1,6 +1,5 @@
 #pragma once
 #include <climits>
-#include <memory>
 #ifndef APS_KERNEL_TEST
 #include <cuda_runtime.h>
 #endif
@@ -47,7 +46,7 @@ void train_kernel(float* global, const Sample* samples, int count, int epochs,
     __shared__ Workspace s;
     __shared__ double epoch_loss;
     float* p = global;
-    if constexpr (Shared) {
+    if (Shared) {
         for (int k=threadIdx.x;k<PARAMS;k+=blockDim.x) local[k]=global[k];
         p=local;
     }
@@ -113,7 +112,7 @@ void train_kernel(float* global, const Sample* samples, int count, int epochs,
         }
         __syncthreads();
     }
-    if constexpr(Shared)
+    if(Shared)
         for(int k=t;k<PARAMS;k+=blockDim.x) global[k]=p[k];
 }
 __global__ void mean_losses(double* loss,int epochs,int count) {

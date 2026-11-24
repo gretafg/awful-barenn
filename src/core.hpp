@@ -62,11 +62,12 @@ inline Data read_data(const std::string& path) {
 inline Model initialize() {
     Model m;
     // Cada camada reinicia o gerador, exatamente como no legado.
-    const std::array<std::pair<int,int>,3> segments{{{W1,INPUT*H1},{W2,H1*H2},{W3,H2*OUTPUT}}};
-    for (auto segment : segments) {
+    const int starts[3] = {W1, W2, W3};
+    const int counts[3] = {INPUT*H1, H1*H2, H2*OUTPUT};
+    for (int layer = 0; layer < 3; ++layer) {
         std::mt19937 rng(1337);
         std::uniform_real_distribution<float> dist(-0.05f,0.05f);
-        for (int k = 0; k < segment.second; ++k) m.p[segment.first+k] = dist(rng);
+        for (int k = 0; k < counts[layer]; ++k) m.p[starts[layer]+k] = dist(rng);
     }
     return m;
 }
@@ -127,6 +128,7 @@ inline void train_cpu(Model& m, const Data& data, int epochs, std::vector<double
 inline std::vector<float> infer_cpu(const Model& m, const Data& data, int threads, int repeats) {
     std::vector<float> scores(data.size()*OUTPUT);
     for (int r = 0; r < repeats; ++r) {
+        // As imagens sao independentes; cada thread usa seus proprios temporarios.
         #pragma omp parallel for schedule(static) num_threads(threads) if(threads > 1)
         for (size_t i = 0; i < data.size(); ++i) {
             Workspace s;

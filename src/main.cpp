@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <iomanip>
 #include <iostream>
+// Reutiliza as classes originais para comparar sem alterar barenn.cpp.
 #define main original_legacy_main
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wreturn-type"
@@ -23,6 +24,13 @@ struct Options {
     std::string backend = "seq", train = "optdigits.tra", test = "optdigits.tes", output;
     int epochs = 51, threads = 1, infer_repeats = 1, block = 128;
 };
+static int positive_integer(const std::string& value, const std::string& key) {
+    size_t end;
+    int v = std::stoi(value,&end);
+    if (end != value.size() || v <= 0)
+        throw std::runtime_error("Inteiro positivo esperado: " + key);
+    return v;
+}
 static Options parse(int argc, char** argv) {
     Options o;
     for (int k = 1; k < argc; ++k) {
@@ -35,20 +43,14 @@ static Options parse(int argc, char** argv) {
         }
         if (k+1 >= argc) throw std::runtime_error("Valor ausente: " + key);
         const std::string value = argv[++k];
-        auto integer = [&]() {
-            size_t end;
-            int v = std::stoi(value,&end);
-            if (end != value.size() || v <= 0) throw std::runtime_error("Inteiro positivo esperado: " + key);
-            return v;
-        };
         if (key == "--backend") o.backend = value;
         else if (key == "--train") o.train = value;
         else if (key == "--test") o.test = value;
         else if (key == "--output") o.output = value;
-        else if (key == "--epochs") o.epochs = integer();
-        else if (key == "--threads") o.threads = integer();
-        else if (key == "--infer-repeats") o.infer_repeats = integer();
-        else if (key == "--block") o.block = integer();
+        else if (key == "--epochs") o.epochs = positive_integer(value,key);
+        else if (key == "--threads") o.threads = positive_integer(value,key);
+        else if (key == "--infer-repeats") o.infer_repeats = positive_integer(value,key);
+        else if (key == "--block") o.block = positive_integer(value,key);
         else throw std::runtime_error("Opcao desconhecida: " + key);
     }
     if (o.backend != "legacy" && o.backend != "seq" && o.backend != "omp" &&
@@ -120,7 +122,7 @@ int main(int argc, char** argv) {
 #ifdef BARENN_CUDA
             aps::run_cuda(model,train,test,o.epochs,o.infer_repeats,o.block,o.backend,losses,scores,timing);
 #else
-            throw std::runtime_error("Backend CUDA requer make cuda e uma GPU NVIDIA");
+            throw std::runtime_error("Compile src/cuda_main.cu com nvcc e execute em uma GPU NVIDIA; veja o README");
 #endif
         }
         size_t correct = 0;
